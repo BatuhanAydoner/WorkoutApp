@@ -24,6 +24,6 @@ class MainActivity : AppCompatActivity() {
     // Uses intent and open ExerciseActivity
     private fun goToExerciseActivity() {
         var intent = Intent(this, ExerciseActivity::class.java)
-        startActivity(intent, ActivityOptions.makeCustomAnimation(this, R.anim.activity_right_to_left_animation, R.anim.activity_right_to_left_animation).toBundle())
+        startActivity(intent)
     }
 }
