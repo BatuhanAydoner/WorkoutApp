@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
         android:background="@color/colorWhite"
-        android:elevation="50dp" />
+        android:elevation="50dp"
+        android:theme="@style/MyCustomToolbar" />
 
 </LinearLayout>
