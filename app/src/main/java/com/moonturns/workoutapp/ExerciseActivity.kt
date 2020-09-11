@@ -1,18 +1,17 @@
 package com.moonturns.workoutapp
 
-import androidx.appcompat.app.AppCompatActivity
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_exercise.*
 import kotlinx.android.synthetic.main.toolbar.*
-import org.w3c.dom.Text
 import java.util.*
-import kotlin.collections.ArrayList
+import kotlin.time.measureTime
 
 class ExerciseActivity : AppCompatActivity() {
 
@@ -28,6 +27,7 @@ class ExerciseActivity : AppCompatActivity() {
     private var currentExercisePosition = -1 // Current image position
 
     private var tts: TextToSpeech? = null // Text to speech for next exercise name
+    private var mediaPlayer: MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +55,10 @@ class ExerciseActivity : AppCompatActivity() {
             tts?.stop()
             tts?.shutdown()
         }
+
+        if (mediaPlayer != null) {
+            mediaPlayer.stop()
+        }
     }
 
     // Setup toolbar for this activity
@@ -75,6 +79,7 @@ class ExerciseActivity : AppCompatActivity() {
         flTimer.setOnClickListener {
             txtTimer.visibility = View.VISIBLE
             if (readyTimer == null) {
+                exerciseSound()
                 initReadyTimer()
             }
         }
@@ -110,6 +115,7 @@ class ExerciseActivity : AppCompatActivity() {
                     readyTimer?.start()
                     stateNextExerciseName(true)
                     exerciseNameToSpeech()
+                    exerciseSound()
                 }else {
 
                 }
@@ -163,11 +169,12 @@ class ExerciseActivity : AppCompatActivity() {
     private fun exerciseNameToSpeech() {
         tts = TextToSpeech(this, TextToSpeech.OnInitListener {
             if (it == TextToSpeech.SUCCESS) {
-                val result = tts?.setLanguage(Locale.US)
+                var result = tts?.setLanguage(Locale.US)
 
                 if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Log.e("myApp", "The language specified is not supported")
+                    Log.e("myApp", "Language is not supported")
                 }
+
             }else {
                 Log.e("myApp", "Initialization failed")
             }
@@ -175,6 +182,12 @@ class ExerciseActivity : AppCompatActivity() {
         var exerciseName = txtNextExerciseName.text
         var speakText = "Upcoming exercise " + exerciseName
         tts?.speak(speakText, TextToSpeech.QUEUE_FLUSH, null, "")
+    }
+
+    // This function uses mediaplayer before exercise
+    private fun exerciseSound() {
+        mediaPlayer = MediaPlayer.create(this, R.raw.press_start)
+        mediaPlayer?.start()
     }
 
     override fun onBackPressed() {
