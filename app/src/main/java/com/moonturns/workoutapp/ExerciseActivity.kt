@@ -8,6 +8,8 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.moonturns.workoutapp.adapter.ItemExerciseAdapter
 import kotlinx.android.synthetic.main.activity_exercise.*
 import kotlinx.android.synthetic.main.toolbar.*
 import java.util.*
@@ -29,6 +31,8 @@ class ExerciseActivity : AppCompatActivity() {
     private var tts: TextToSpeech? = null // Text to speech for next exercise name
     private var mediaPlayer: MediaPlayer? = null
 
+    private var itemExerciseAdapter: ItemExerciseAdapter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise)
@@ -39,6 +43,9 @@ class ExerciseActivity : AppCompatActivity() {
         exerciseList = Constants.defaultLExerciseList()
 
         txtNextExerciseName.text = exerciseList!![currentExercisePosition + 1].name
+
+        itemExerciseAdapter = ItemExerciseAdapter(arrayListOf())
+        initExerciseRecyclerview()
     }
 
     override fun onDestroy() {
@@ -57,7 +64,7 @@ class ExerciseActivity : AppCompatActivity() {
         }
 
         if (mediaPlayer != null) {
-            mediaPlayer.stop()
+            mediaPlayer?.stop()
         }
     }
 
@@ -91,10 +98,13 @@ class ExerciseActivity : AppCompatActivity() {
         exerciseNameToSpeech()
         readyTimer = object : CountDownTimer(TIME_GET_READY, COUNTDOWN_INTERVAL) {
             override fun onFinish() {
-                setProgressBarTimer(30, 30)
-                visibleExerciseImage()
-                initExerciseTimer()
-                stateNextExerciseName(false)
+                if (currentExercisePosition < exerciseList!!.size - 1) {
+                    setProgressBarTimer(30, 30)
+                    visibleExerciseImage()
+                    initExerciseTimer()
+                    stateNextExerciseName(false)
+                    itemExerciseAdapter?.addItem(currentExercisePosition + 1)
+                }
             }
 
             override fun onTick(millisUntilFinished: Long) {
@@ -188,6 +198,14 @@ class ExerciseActivity : AppCompatActivity() {
     private fun exerciseSound() {
         mediaPlayer = MediaPlayer.create(this, R.raw.press_start)
         mediaPlayer?.start()
+    }
+
+    // Setup recyclerview for activity_exercise
+    private fun initExerciseRecyclerview() {
+        rvExerciseStatus.apply {
+            adapter = itemExerciseAdapter
+            layoutManager = LinearLayoutManager(this@ExerciseActivity, LinearLayoutManager.HORIZONTAL, false)
+        }
     }
 
     override fun onBackPressed() {
