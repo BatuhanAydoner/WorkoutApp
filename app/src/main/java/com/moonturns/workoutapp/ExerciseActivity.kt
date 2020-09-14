@@ -1,5 +1,6 @@
 package com.moonturns.workoutapp
 
+import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -104,6 +105,8 @@ class ExerciseActivity : AppCompatActivity() {
                     initExerciseTimer()
                     stateNextExerciseName(false)
                     changeCurrentItemBackground()
+                }else {
+                    goToFinishActivity()
                 }
             }
 
@@ -213,6 +216,13 @@ class ExerciseActivity : AppCompatActivity() {
         var view = rvExerciseStatus.layoutManager!!.getChildAt(currentExercisePosition)
         view?.background = ContextCompat.getDrawable(this, R.drawable.item_exercise_border)
 
+    }
+
+    // Open FinishActivity.
+    private fun goToFinishActivity() {
+        finish()
+        var intent = Intent(this, FinishActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onBackPressed() {
