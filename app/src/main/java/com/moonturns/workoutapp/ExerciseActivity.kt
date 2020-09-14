@@ -44,7 +44,7 @@ class ExerciseActivity : AppCompatActivity() {
 
         txtNextExerciseName.text = exerciseList!![currentExercisePosition + 1].name
 
-        itemExerciseAdapter = ItemExerciseAdapter(arrayListOf())
+        itemExerciseAdapter = ItemExerciseAdapter(exerciseList!!)
         initExerciseRecyclerview()
     }
 
@@ -103,7 +103,7 @@ class ExerciseActivity : AppCompatActivity() {
                     visibleExerciseImage()
                     initExerciseTimer()
                     stateNextExerciseName(false)
-                    itemExerciseAdapter?.addItem(currentExercisePosition + 1)
+                    changeCurrentItemBackground()
                 }
             }
 
@@ -206,6 +206,13 @@ class ExerciseActivity : AppCompatActivity() {
             adapter = itemExerciseAdapter
             layoutManager = LinearLayoutManager(this@ExerciseActivity, LinearLayoutManager.HORIZONTAL, false)
         }
+    }
+
+    // When a exercise is finished, marks an item as completed
+    private fun changeCurrentItemBackground() {
+        var view = rvExerciseStatus.layoutManager!!.getChildAt(currentExercisePosition)
+        view?.background = ContextCompat.getDrawable(this, R.drawable.item_exercise_border)
+
     }
 
     override fun onBackPressed() {

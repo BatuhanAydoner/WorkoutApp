@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.moonturns.workoutapp.ExerciseModel
 import com.moonturns.workoutapp.R
 import kotlinx.android.synthetic.main.item_exercise_status.view.*
 
-class ItemExerciseAdapter(var exerciseItemList: ArrayList<Int>): RecyclerView.Adapter<ItemExerciseAdapter.MyViewHolder>() {
+class ItemExerciseAdapter(var exerciseItemList: ArrayList<ExerciseModel>): RecyclerView.Adapter<ItemExerciseAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         var view = LayoutInflater.from(parent.context).inflate(R.layout.item_exercise_status, parent, false)
@@ -20,14 +21,10 @@ class ItemExerciseAdapter(var exerciseItemList: ArrayList<Int>): RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.itemView.txtItem.text = "" + exerciseItemList[position]
+        holder.itemView.txtItem.text = exerciseItemList[position].id.toString()
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    }
-    fun addItem(item: Int) {
-        exerciseItemList.add(item)
-        notifyDataSetChanged()
     }
 }
