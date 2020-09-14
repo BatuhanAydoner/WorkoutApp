@@ -1,5 +1,6 @@
 package com.moonturns.workoutapp
 
+import android.app.Dialog
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -12,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.moonturns.workoutapp.adapter.ItemExerciseAdapter
 import kotlinx.android.synthetic.main.activity_exercise.*
+import kotlinx.android.synthetic.main.custom_dialog.*
 import kotlinx.android.synthetic.main.toolbar.*
 import java.util.*
 import kotlin.time.measureTime
@@ -20,7 +22,7 @@ class ExerciseActivity : AppCompatActivity() {
 
     private var readyTimer: CountDownTimer? = null
     private var exerciseTimer: CountDownTimer? = null
-    private val TIME_GET_READY = 1000L // Before exercise starts
+    private val TIME_GET_READY = 10000L // Before exercise starts
     private val TIME_EXERCISE = 30000L // Exercise duration
     private val COUNTDOWN_INTERVAL = 1000L
 
@@ -78,7 +80,7 @@ class ExerciseActivity : AppCompatActivity() {
         }
 
         toolbarExerciseActivity.setNavigationOnClickListener {
-            onBackPressed()
+            customDialogForBackButton()
         }
     }
 
@@ -221,6 +223,21 @@ class ExerciseActivity : AppCompatActivity() {
         finish()
         var intent = Intent(this, FinishActivity::class.java)
         startActivity(intent)
+    }
+
+    // When back button at toolbar is clicked, show a custom dialog.
+    private fun customDialogForBackButton() {
+        var dialog = Dialog(this)
+        dialog.setContentView(R.layout.custom_dialog)
+        dialog.btnYes.setOnClickListener {
+            dialog.dismiss()
+            onBackPressed()
+        }
+        dialog.btnNo.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     override fun onBackPressed() {

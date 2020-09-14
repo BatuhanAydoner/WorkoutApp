@@ -21,6 +21,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // llCalculator click event listener
+    private fun llCalculatorClickEvent() {
+        llCalculator.setOnClickListener {
+            
+        }
+    }
+
     // Uses intent and open ExerciseActivity
     private fun goToExerciseActivity() {
         var intent = Intent(this, ExerciseActivity::class.java)
