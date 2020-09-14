@@ -20,7 +20,7 @@ class ExerciseActivity : AppCompatActivity() {
 
     private var readyTimer: CountDownTimer? = null
     private var exerciseTimer: CountDownTimer? = null
-    private val TIME_GET_READY = 10000L // Before exercise starts
+    private val TIME_GET_READY = 1000L // Before exercise starts
     private val TIME_EXERCISE = 30000L // Exercise duration
     private val COUNTDOWN_INTERVAL = 1000L
 
@@ -105,8 +105,6 @@ class ExerciseActivity : AppCompatActivity() {
                     initExerciseTimer()
                     stateNextExerciseName(false)
                     changeCurrentItemBackground()
-                }else {
-                    goToFinishActivity()
                 }
             }
 
@@ -130,7 +128,7 @@ class ExerciseActivity : AppCompatActivity() {
                     exerciseNameToSpeech()
                     exerciseSound()
                 }else {
-
+                    goToFinishActivity()
                 }
             }
 

@@ -18,6 +18,8 @@ class FinishActivity : AppCompatActivity() {
         tb_FinishActivity.setNavigationOnClickListener {
             onBackPressed()
         }
+
+        btnFinishClickEvent()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -26,7 +28,7 @@ class FinishActivity : AppCompatActivity() {
 
     private fun btnFinishClickEvent() {
         btnFinish.setOnClickListener {
-
+            onBackPressed()
         }
     }
 }
