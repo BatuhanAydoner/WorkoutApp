@@ -12,6 +12,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         startButtonClickEvent()
+        llCalculatorClickEvent()
     }
 
     // llStart click event from activity_main.xml
@@ -24,13 +25,19 @@ class MainActivity : AppCompatActivity() {
     // llCalculator click event listener
     private fun llCalculatorClickEvent() {
         llCalculator.setOnClickListener {
-            
+            goToCalculatorActivity()
         }
     }
 
     // Uses intent and open ExerciseActivity
     private fun goToExerciseActivity() {
         var intent = Intent(this, ExerciseActivity::class.java)
+        startActivity(intent)
+    }
+
+    // Uses intent and open CalculatorActivity
+    private fun goToCalculatorActivity() {
+        var intent = Intent(this, CalculatorActivity::class.java)
         startActivity(intent)
     }
 }
