@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
 
         startButtonClickEvent()
         llCalculatorClickEvent()
+        llHistoryClickEvent()
     }
 
     // llStart click event from activity_main.xml
@@ -29,6 +30,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // llHistory click event listener
+    private fun llHistoryClickEvent() {
+        llHistory.setOnClickListener {
+            goToHistoryActivity()
+        }
+    }
+
     // Uses intent and open ExerciseActivity
     private fun goToExerciseActivity() {
         var intent = Intent(this, ExerciseActivity::class.java)
@@ -38,6 +46,12 @@ class MainActivity : AppCompatActivity() {
     // Uses intent and open CalculatorActivity
     private fun goToCalculatorActivity() {
         var intent = Intent(this, CalculatorActivity::class.java)
+        startActivity(intent)
+    }
+
+    // Uses intent and open HistoryActivity
+    private fun goToHistoryActivity() {
+        var intent = Intent(this, HistoryActivity::class.java)
         startActivity(intent)
     }
 }

@@ -6,6 +6,4 @@ data class ExerciseModel(
     var image: Int,
     var isCompleted: Boolean,
     var isSelected: Boolean
-) {
-
-}
+)

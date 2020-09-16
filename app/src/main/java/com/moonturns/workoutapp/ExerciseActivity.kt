@@ -49,6 +49,8 @@ class ExerciseActivity : AppCompatActivity() {
 
         itemExerciseAdapter = ItemExerciseAdapter(exerciseList!!)
         initExerciseRecyclerview()
+
+        goToFinishActivity()
     }
 
     override fun onDestroy() {
@@ -61,9 +63,11 @@ class ExerciseActivity : AppCompatActivity() {
             exerciseTimer?.cancel()
         }
 
-        if (tts!!.isSpeaking) {
-            tts?.stop()
-            tts?.shutdown()
+        if (tts != null) {
+            if (tts!!.isSpeaking) {
+                tts?.stop()
+                tts?.shutdown()
+            }
         }
 
         if (mediaPlayer != null) {
@@ -240,7 +244,4 @@ class ExerciseActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-    }
 }

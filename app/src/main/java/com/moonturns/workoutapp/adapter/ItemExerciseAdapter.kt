@@ -24,7 +24,5 @@ class ItemExerciseAdapter(var exerciseItemList: ArrayList<ExerciseModel>): Recyc
         holder.itemView.txtItem.text = exerciseItemList[position].id.toString()
     }
 
-    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-    }
+    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }
