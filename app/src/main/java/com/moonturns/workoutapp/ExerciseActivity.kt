@@ -49,8 +49,6 @@ class ExerciseActivity : AppCompatActivity() {
 
         itemExerciseAdapter = ItemExerciseAdapter(exerciseList!!)
         initExerciseRecyclerview()
-
-        goToFinishActivity()
     }
 
     override fun onDestroy() {

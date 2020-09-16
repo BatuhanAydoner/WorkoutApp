@@ -47,7 +47,7 @@ class FinishActivity : AppCompatActivity() {
                 var calendar = Calendar.getInstance()
                 var dateTime = calendar.time
 
-                var formatter = SimpleDateFormat("dd MM yyyy HH::mm::ss", Locale.getDefault())
+                var formatter = SimpleDateFormat("dd MM yyyy HH:mm:ss", Locale.getDefault())
                 var workoutAppDatabaseModel = WorkoutAppEntity(0, formatter.format(dateTime))
 
                 var workoutAppDao = WorkoutAppDatabase.invoke(this@FinishActivity).workoutAppDao()
